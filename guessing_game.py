@@ -35,11 +35,19 @@ def start_game():
     print(f"*** The Number Guessing is easy and fun. ***")
 
     random_number = random.randrange(1, 10)
+    print(random_number)
     player_guess = int(input("Guess a number between 1 and 10: "))
-    while player_guess != random_number:
-        print(f"Player guess: {player_guess}")
-        print(f"Random number {random_number}")
-        player_guess = input("Wrong answer. Try again. Guess a number between 1 and 10:   ")
+
+    if player_guess == random_number:
+        print("You win!")
+    else:
+        while random_number != player_guess:
+            print(f"Player guess: {player_guess}")
+            print(f"Random number {random_number}")
+            player_guess = int(input("Wrong answer. Try again. Guess a number between 1 and 10:   "))
+        else:
+            print("You win!")
 
 # Kick off the program by calling the start_game function.
-start_game()
+if __name__ == '__main__':
+    start_game()
