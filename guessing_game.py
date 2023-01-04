@@ -48,44 +48,54 @@ def start_game():
     ( You can add more features/enhancements if you'd like to. )
     """
     # write your code inside this function.
-    print(f"***         NUMBER GUESSING GAME         ***")
-    print(f"*** The Number Guessing is easy and fun. ***")
-    print(f"***   HODGESLO interactive studios (c) 2023    ***")
+    print(f"\n***         NUMBER GUESSING GAME         ***")
+    print(f"*** The Number Guessing is easy and fun. Do you think that you can beat the high score? ***\n")
 
     random_number = random.randrange(1, 10)
-    print(random_number)
     game_over = False
     number_of_attempts = 0
+    high_score = 0
+
+    # high score is the lowest of attempts
+    # high_score = number_of_attempts
 
     while game_over == False:
         try:
-            player_guess = int(input("Guess a number between 1 and 10: "))
-            number_of_attempts += 1
+            #print(f"Random Number (test): {random_number}")  # remove later
+            print(f"\nCurrent high score: {high_score}\n")
+            player_guess = int(input("INITIAL Guess a number between 1 and 10: "))
 
             if player_guess < 1 or player_guess > 10:
-                print(f"Please enter a number between 1 and 10")
+                print(f"\nOops, try again! Enter a number between 1 and 10\n")
+                #number_of_attempts = number_of_attempts - 1 # ask if an attempt outside of the range should be counted as an attempt
                 number_of_attempts = 0
             elif player_guess == random_number:
+                number_of_attempts += 1
                 print(f"You win! Number of attempts: {number_of_attempts}")
-                game_over = True
-            else:
-                while random_number != player_guess:
-                    print(f"Player guess: {player_guess}") # remove later
-                    print(f"Random number {random_number}") # remove later
-
-                    if player_guess < random_number:
-                        print(f"Wrong guess! It's higher.")
-                    else:
-                        print(f"Wrong guess! It's lower.")
-
-                    player_guess = int(input("Try again. Guess a number between 1 and 10:   "))
-                    number_of_attempts += 1
-                else:
-                    print(f"You win! Number of attempts: {number_of_attempts}")
+                play_again = input("Would you like to play again? (y/n)   ")
+                if play_again.lower() == "y":
+                    game_over = False
+                    random_number = random.randrange(1, 10)
+                    if high_score == 0 or high_score == 1:
+                        high_score = number_of_attempts
+                    elif number_of_attempts < high_score:
+                        high_score = number_of_attempts
+                    elif number_of_attempts > high_score:
+                        high_score
+                    number_of_attempts = 0
+                elif play_again.lower() == "n":
                     game_over = True
+                    random_number = random.randrange(1, 10)
+                    number_of_attempts = 0
+                    print(f"GAME OVER! Thank you for playing. Have a good day!")
+            elif player_guess < random_number:
+                print(f"Wrong guess! It's higher.")
+                number_of_attempts += 1
+            elif player_guess > random_number:
+                print(f"Wrong guess! It's lower.")
+                number_of_attempts += 1
         except ValueError:
-            print("Oops. Please enter a number only")
+            print("\nOops. Please enter a number only\n")
 
 # Kick off the program by calling the start_game function.
-if __name__ == '__main__':
-    start_game()
+start_game()
